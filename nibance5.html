@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nibance - AI-Driven Trading</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #6b7280, #374151);
+        }
+        .feature-box {
+            background-color: #1f2937;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid #374151;
+        }
+        .feature-box:hover {
+            transform: translateY(-0.5rem);
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 6px -1px rgba(0, 0, 0, 0.1);
+            border-color: #6366f1;
+        }
+        .info-box {
+            background-color: #374151;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            color: #d1d5db;
+        }
+        .info-box h3 {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .active {
+            color: #6366f1 !important;
+        }
+
+        /* CSS for collapsible FAQ */
+        .faq-question {
+            cursor: pointer;
+            padding: 1rem;
+            background-color: #374151;
+            border-radius: 0.75rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: #4a5568;
+        }
+
+        .faq-question h3 {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+
+        .faq-answer {
+            padding: 1rem;
+            background-color: #4a5568;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            display: none;
+            color: #d1d5db;
+        }
+
+        .faq-answer.show {
+            display: block;
+        }
+
+        .arrow {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-top: 0.125rem solid #fff;
+            border-right: 0.125rem solid #fff;
+            transform: rotate(135deg);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active .arrow {
+            transform: rotate(315deg);
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <header class="bg-gray-900 bg-opacity-90 backdrop-blur-md py-4 px-6 fixed w-full top-0 z-50 border-b border-gray-800">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Nibance</a>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="hover:text-blue-300 transition duration-300">Home</a></li>
+                    <li><a href="#about" class="hover:text-blue-300 transition duration-300">About</a></li>
+                    <li><a href="#trading" class="hover:text-blue-300 transition duration-300">Trading</a></li>
+                    <li><a href="#faq" class="hover:text-blue-300 transition duration-300">FAQ</a></li>
+                    <li><a href="#cryptocurrency" class="hover:text-blue-300 transition duration-300">Crypto</a></li>
+                    <li><a href="#exchange" class="hover:text-blue-300 transition duration-300">Exchange</a></li>
+                    <li><a href="#markets" class="hover:text-blue-300 transition duration-300">Markets</a></li>
+                    <li><a href="#trade" class="hover:text-blue-300 transition duration-300">Trade</a></li>
+                </ul>
+            </nav>
+            <button id="hamburger-btn" class="md:hidden text-white focus:outline-none" aria-label="Toggle Navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-90 z-50">
+        <div class="bg-gray-800 w-80 h-full absolute right-0 p-6">
+            <div class="flex justify-end mb-4">
+                <button id="close-menu-btn" class="text-white focus:outline-none" aria-label="Close Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <nav class="block">
+                <ul class="space-y-4">
+                    <li><a href="#home" class="block text-lg text-white hover:text-blue-300 transition duration-300">Home</a></li>
+                    <li><a href="#about" class="block text-lg text-white hover:text-blue-300 transition duration-300">About</a></li>
+                    <li><a href="#trading" class="block text-lg text-white hover:text-blue-300 transition duration-300">Trading</a></li>
+                    <li><a href="#faq" class="block text-lg text-white hover:text-blue-300 transition duration-300">FAQ</a></li>
+                    <li><a href="#cryptocurrency" class="block text-lg text-white hover:text-blue-300 transition duration-300">Crypto</a></li>
+                    <li><a href="#exchange" class="block text-lg text-white hover:text-blue-300 transition duration-300">Exchange</a></li>
+                    <li><a href="#markets" class="block text-lg text-white hover:text-blue-300 transition duration-300">Trade</a></li>
+                    <li><a href="#trade" class="block text-lg text-white hover:text-blue-300 transition duration-300">Trade</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <main class="pt-20 pb-10 container mx-auto px-6">
+        <section id="home" class="py-24 text-center bg-gray-800 rounded-xl shadow-lg p-8">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-6">
+                Unlock the Power of AI-Driven Crypto Trading
+            </h1>
+            <p class="text-lg text-gray-300 mb-8">
+                Nibance leverages cutting-edge artificial intelligence to provide secure, fast, and intelligent cryptocurrency trading for everyone.
+            </p>
+            <button class="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold px-8 py-4 rounded-full transition duration-300 text-xl
+                            shadow-lg hover:shadow-blue-500/20">
+                Explore AI Trading Now
+            </button>
+        </section>
+
+        <section id="exchange" class="py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-semibold text-white mb-4">Your All-in-One Exchange</h2>
+                <p class="text-gray-300 text-lg">
+                    Buy, sell, and trade a variety of cryptocurrencies on our platform.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="feature-box">
+                    <i class="fas fa-shield-alt text-blue-400 text-2xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-4">Secure Trading</h3>
+                    <p class="text-gray-400">
+                        We prioritize the security of your assets with advanced encryption and cold storage.
+                    </p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-coins text-green-400 text-2xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-4">Low Fees</h3>
+                    <p class="text-gray-400">
+                        Enjoy competitive trading fees and maximize your profits.
+                    </p>
+                </div>
+                <div class="feature-box">
+                    <i class="fas fa-headset text-purple-400 text-2xl mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-4">24/7 Support</h3>
+                    <p class="text-gray-400">
+                        Our dedicated support team is available around the clock to assist you.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="markets" class="py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-semibold text-white mb-4">Explore Markets</h2>
+                <p class="text-gray-300 text-lg">
+                    Stay updated with the latest market trends and prices.
+                </p>
+            </div>
+            <div class="bg-gray-800 rounded-xl shadow-lg p-6">
+                <div class="h-[400px] bg-gray-700 rounded-md flex items-center justify-center">
+                    <span class="text-gray-400">Market data will be displayed here</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="trade" class="py-12">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-semibold text-white mb-4">Start Trading</h2>
+                <p class="text-gray-300 text-lg">
+                    Trade cryptocurrencies instantly with our user-friendly platform.
+                </p>
+            </div>
+            <div class="bg-gray-800 rounded-xl shadow-lg p-6">
+                <div class="h-[400px] bg-gray-700 rounded-md flex items-center justify-center">
+                    <span class="text-gray-400">Trading interface will be displayed here</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="cryptocurrency" class="py-12">
+            <h2 class="text-2xl font-semibold text-white mb-6 text-center">Cryptocurrency Investments</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="feature-box">
+                    <h3 class="text-xl font-semibold text-white mb-2">Bitcoin <span class="text-xs text-gray-400">(BTC)</span></h3>
+                    <p class="text-gray-400">Price: $8,109.70</p>
+                    <p class="text-gray-400">Cap: $136,657,260,244.00</p>
+                    <p class="text-green-500"><i class="fas fa-caret-up mr-1"></i> 25.94%</p>
+                </div>
+                <div class="feature-box">
+                    <h3 class="text-xl font-semibold text-white mb-2">Ethereum <span class="text-xs text-gray-400">(ETH)</span></h3>
+                    <p class="text-gray-400">Price: $830.50</p>
+                    <p class="text-gray-400">Cap: $80,945,193,726</p>
+                    <p class="text-green-500"><i class="fas fa-caret-up mr-1"></i> 30.68%</p>
+                </div>
+                <div class="feature-box">
+                    <h3 class="text-xl font-semibold text-white mb-2">Dash <span class="text-xs text-gray-400">(DASH)</span></h3>
+                    <p class="text-gray-400">Price: $554.26</p>
+                    <p class="text-gray-400">Cap: $4,361,904,309</p>
+                    <p class="text-red-500"><i class="fas fa-caret-down mr-1"></i> -6.38%</p>
+                </div>
+                <div class="feature-box">
+                    <h3 class="text-xl font-semibold text-white mb-2">Litecoin <span class="text-xs text-gray-400">(LTC)</span></h3>
+                    <p class="text-gray-400">Price: $152.51</p>
+                    <p class="text-gray-400">Cap: $8,404,897,705</p>
+                    <p class="text-green-500"><i class="fas fa-caret-up mr-1"></i> 31.14%</p>
+                </div>
+                <div class="feature-box">
+                    <h3 class="text-xl font-semibold text-white mb-2">Ripple <span class="text-xs text-gray-400">(XRP)</span></h3>
+                    <p class="text-gray-400">Price: $0.785075</p>
+                    <p class="text-gray-400">Cap: $30,625,160,124</p>
+                    <p class="text-green-500"><i class="fas fa-caret-up mr-1"></i> 31.14%</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-12">
+            <h2 class="text-2xl font-semibold text-white mb-6">About Nibance</h2>
+            <div class="bg-gray-800 rounded-lg p-6">
+                <p class="text-gray-300 text-lg mb-4">
+                    Nibance is a Financial Service firm specializing in Forex Trading, Cryptocurrency Analysis with the help of AI-driven investment Strategies.
+                </p>
+                <p class="text-gray-300 text-lg mb-4">
+                    Using AI bots tools Trading bots, it analyzes market trends, predicts price movements and Automates strategies with precision.
+                </p>
+                <p class="text-gray-300 text-lg mb-4">
+                   The AI Systems and bots offer transparent, data-driven insights, building trust through reliable consistent and efficient decision-making for clients.
+                </p>
+                <a href="#" id="read-more-about" class="text-blue-400 hover:text-blue-300 transition duration-300 inline-block mt-4">Read More</a>
+                <div id="about-content" class="hidden mt-4 text-gray-300 text-lg">
+                    <p>A financial services firm Leveraging AI tools and Trading bots for forex and crypto Analysis providing clients with reliable data driven insights and Automated strategies to enhance decision making and optimize trading performance.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="trading" class="py-12">
+            <h2 class="text-2xl font-semibold text-white mb-6">Automated Trading & Analysis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="info-box">
+                    <h3 class="text-lg font-semibold text-white mb-2">Automated Trading</h3>
+                    <p>AI bots work 24/7, executing trades to maximize profits.</p>
+                </div>
+                <div class="info-box">
+                    <h3 class="text-lg font-semibold text-white mb-2">Reliability & Transparency</h3>
+                    <p>Track your investments and earnings with real-time insights.</p>
+                </div>
+            </div>
+            <p class="text-gray-300 mt-4 text-sm">Note: This combination of AI technology, bonuses, and automation creates an optimal investment experience.</p>
+
+            <div class="mt-8">
+                <h2 class="text-2xl font-semibold text-white mb-6">Why Nibance?</h2>
+                <ul class="list-disc list-inside space-y-2">
+                    <li class="text-gray-300"><span class="font-semibold text-white">Cutting Edge AI technology</span> self-optimize market to provide data driven insights and minimize errors.</li>
+                    <li class="text-gray-300"><span class="font-semibold text-white">Smart Earning & bonuses</span> with generous rewards.</li>
+                    <li class="text-gray-300">Likes: Joining Bonus, Referral Program, Multi-level Bonus chain</li>
+                </ul>
+            </div>
+
+            <div class="mt-8">
+                <h2 class="text-2xl font-semibold text-white mb-6">Benefits of Nibance</h2>
+                <p class="text-gray-300 mb-4">Discover the Benefits of Nibance: Lower Transaction Costs, Greater Market Liquidity, and Enhanced Trading Accuracy!</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="info-box">
+                        <h3 class="text-lg font-semibold text-white mb-2">Minimizing Transaction Costs</h3>
+                        <p>Automated trading boosts efficiency, lowering costs.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3 class="text-lg font-semibold text-white mb-2">Emotion-Free Trading</h3>
+                        <p>Automated systems remove emotional biases.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3 class="text-lg font-semibold text-white mb-2">Speed & Efficiency</h3>
+                        <p>Algorithms execute trades at high speed.</p>
+                    </div>
+                    <div class="info-box">
+                        <h3 class="text-lg font-semibold text-white mb-2">Diversification</h3>
+                        <p>Facilitates trading across diverse markets.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <h2 class="text-2xl font-semibold text-white mb-6">Nibance Smart & Automated Trading Solutions</h2>
+                <p class="text-gray-300 mb-4">
+                    In the fast-paced world of financial markets, Nibance offers cutting-edge Smart & Automated Trading Solutions designed to maximize efficiency, reduce risks, and enhance profitability.
+                </p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li class="text-gray-300"><span class="font-semibold text-white">AI-Powered Trading</span> – Our intelligent algorithms analyze market data in real-time.</li>
+                    <li class="text-gray-300"><span class="font-semibold text-white">Automated Execution</span> – Our system executes trades seamlessly based on pre-defined strategies.</li>
+                    <li class="text-gray-300"><span class="font-semibold text-white">Multi-Asset Trading</span> – Trade across forex, stocks, commodities, and cryptocurrencies.</li>
+                    <li class="text-gray-300"><span class="font-semibold text-white">User-Friendly Interface</span> – Our platform makes trading easy and efficient.</li>
+                </ul>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-gray-300 text-lg mb-4">Experience the Future of Trading</p>
+                <p class="text-gray-300 text-lg mb-6">With Nibance, traders can leverage automation, reduce emotional bias, and optimize their strategies. Join the revolution in algorithmic trading!</p>
+                <button class="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold px-8 py-3 rounded-full transition duration-300 shadow-md text-lg">
+                    🚀 Start Trading Smarter with Nibance Now!
+                </button>
+            </div>
+        </section>
+
+        <section id="faq" class="py-12">
+            <h2 class="text-2xl font-semibold text-white mb-6">Nibance - Frequently Asked Questions (FAQ)</h2>
+            <div class="space-y-4" id="faq-container">
+                <div class="faq-question">
+                    <h3 class="text-lg font-semibold text-white mb-0">What is Nibance?</h3>
+                    <div class="arrow"></div>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-300">Nibance is a financial service firm specializing in AI-driven trading solutions.</p>
+                </div>
+                <div class="faq-question">
+                    <h3 class="text-lg font-semibold text-white mb-0">Does Nibance offer automated trading?</h3>
+                     <div class="arrow"></div>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-300">Yes, Nibance provides AI-powered automated trading.</p>
+                </div>
+                <div class="faq-question">
+                    <h3 class="text-lg font-semibold text-white mb-0">Do I need prior trading experience?</h3>
+                    <div class="arrow"></div>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-300">Nibance offers a user-friendly platform for both beginners and professionals.</p>
+                </div>
+                <div class="faq-question">
+                    <h3 class="text-lg font-semibold text-white mb-0">Is Nibance trade robot safe to use?</h3>
+                    <div class="arrow"></div>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-300">Yes, Nibance employs advanced technology and security measures.</p>
+                </div>
+                 <div class="faq-question">
+                    <h3 class="text-lg font-semibold text-white mb-0">How does Nibance robot work?</h3>
+                    <div class="arrow"></div>
+                </div>
+                <div class="faq-answer">
+                    <p class="text-gray-300">Nibance robots analyze market data in real-time and execute trades based on pre-defined strategies.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 bg-opacity-90 backdrop-blur-md py-6 border-t border-gray-800">
+        <div class="container mx-auto text-center text-gray-400">
+            &copy; 2024 Nibance. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const closeMenuBtn = document.getElementById("close-menu-btn");
+        const mobileMenuLinks = mobileMenu.querySelectorAll("a");
+        const navLinks = document.querySelectorAll('header nav a');
+        const sections = document.querySelectorAll('section');
+        const readMoreAboutBtn = document.getElementById("read-more-about");
+        const aboutContent = document.getElementById("about-content");
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle("hidden");
+        }
+
+        hamburgerBtn.addEventListener("click", toggleMobileMenu);
+        closeMenuBtn.addEventListener("click", toggleMobileMenu);
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener("click", toggleMobileMenu);
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(event.target) && event.target !== hamburgerBtn) {
+                toggleMobileMenu();
+            }
+        });
+
+        function updateActiveNavLink() {
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === currentSectionId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavLink);
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // "Read More" functionality for About Us section
+        if (readMoreAboutBtn && aboutContent) {
+            readMoreAboutBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                aboutContent.classList.toggle("hidden");
+                this.textContent = aboutContent.classList.contains("hidden") ? "Read More" : "Read Less";
+            });
+        }
+
+        // FAQ section interactivity
+        const faqContainer = document.getElementById('faq-container');
+        if (faqContainer) {
+            faqContainer.addEventListener('click', (event) => {
+                const clickedQuestion = event.target.closest('.faq-question');
+                if (clickedQuestion) {
+                    const answer = clickedQuestion.nextElementSibling;
+                    if (answer) {
+                        clickedQuestion.classList.toggle('active');
+                        answer.classList.toggle('show');
+                    }
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
